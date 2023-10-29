@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h5>Employee Details</h5>
+<div class="card">
+
+                <div class="card-body">
+                  <form method="post" action="{% url 'saveemp' %}">
+                      {% csrf_token %}
+                    <div class="mb-3" style="margin-left:300px">
+                      <label for="exampleInputEmail1" class="form-label">Employee Name</label>
+                      <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="name">
+
+                    </div>
+                    <div class="mb-3"  style="margin-left:300px">
+                      <label for="exampleInputPassword1" class="form-label">Designation</label>
+                      <input type="text" class="form-control" id="exampleInputPassword1" name="designation">
+                    </div>
+                      <div class="mb-3"  style="margin-left:300px">
+                        <label for="exampleInputPassword2" class="form-label">Date of Joining</label>
+                        <input type="date" min="2022-01-01" class="form-control" id="exampleInputPassword2" name="date">
+                      </div>
+                    <button type="submit" style="margin-left:300px" class="btn btn-primary">Submit</button>
+                  </form>
+                </div>
+</div>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+       {% if messages %}
+          {% for i in messages %}
+               {% if i.tags == 'warning' %}
+                   <script>
+                        swal('{{i}}','','warning');
+                   </script>
+               {% elif i.tags == 'error' %}
+                   <script>
+                        swal('{{i}}','','error');
+                   </script>
+               {% else%}
+                   <script>
+                        swal('{{i}}','','success');
+                   </script>
+               {% endif %}
+         {% endfor %}
+      {%endif%}
+</body>
+</html>
+{% endblock %}
